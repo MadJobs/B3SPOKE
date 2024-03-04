@@ -1,2 +1,1 @@
-# B3SPOKE
-B3SPOKE allows you to import your current resume as a template, read from a skillset matrix and create a bespoke resume based on a job description
+![MJ_ASNI](https://github.com/MadJobs/B3SPOKE/assets/3261849/e93a109f-d5a8-4eb8-a1c9-c11fe48b4bd1)
