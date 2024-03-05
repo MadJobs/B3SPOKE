@@ -1,4 +1,5 @@
 # B3SPOKE Resume Generator
+
 ![AI](https://img.shields.io/badge/AI-Enabled-brightgreen)
 ![Generative AI](https://img.shields.io/badge/Generative%20AI-Enabled-blueviolet)
 ![OpenLLM](https://img.shields.io/badge/OpenLLM-Integrated-blue)
