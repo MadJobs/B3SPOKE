@@ -1,4 +1,9 @@
-# B3SPOKE Resume Generator
+
+![MJ_ASNI](https://github.com/MadJobs/B3SPOKE/assets/3261849/fad5d78e-9a79-46dc-a8e8-b248934c57c5)
+```
+ ██▄ ▀██ ▄▀▀ █▀▄ ▄▀▄ █▄▀ ██▀
+ █▄█ ▄▄█ ▄██ █▀  ▀▄▀ █ █ █▄▄
+```
 
 ![AI](https://img.shields.io/badge/AI-Enabled-brightgreen)
 ![Generative AI](https://img.shields.io/badge/Generative%20AI-Enabled-blueviolet)
