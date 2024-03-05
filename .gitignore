@@ -1,0 +1,5 @@
+
+.streamlit/secrets.toml
+.DS_Store
+inputs/resumes/Corian_Kennedy.docx
+inputs/skillsets/kennedy_skillset.csv
