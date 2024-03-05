@@ -9,11 +9,11 @@
 ![Generative AI](https://img.shields.io/badge/Generative%20AI-Enabled-blueviolet)
 ![OpenLLM](https://img.shields.io/badge/OpenLLM-Integrated-blue)
 
-🚀 "Recruiters and Resume Writers Hate Him for This One Simple Trick!" 🚀
+## 🚀 "Recruiters and Resume Writers Hate Him for This One Simple Trick!" 🚀
 
-Ever felt like crafting the perfect resume is like playing a high-stakes game of Mad Libs? 📝✨ Where you're carefully selecting words to fill in the blanks, hoping it magically aligns with what recruiters want to hear?
+## Ever felt like crafting the perfect resume is like playing a high-stakes game of Mad Libs? 📝✨ Where you're carefully selecting words to fill in the blanks, hoping it magically aligns with what recruiters want to hear?
 
-Introducing B3SPOKE: the game-changer in resume creation that's shaking up the job market and sending traditional resume services into a frenzy! 🌪️💼
+# Introducing B3SPOKE: the game-changer in resume creation that's shaking up the job market and sending traditional resume services into a frenzy! 🌪️💼
 
 🔥 With B3SPOKE, we've taken the guesswork (and the grunt work) out of personalized resume crafting. Imagine the power of OpenAI's GPT-3.5 model, combined with the whimsical creativity of Mad Libs, to generate bespoke resumes tailored specifically to the job you're eyeing. It's not just about filling in blanks; it's about crafting your career narrative with precision and flair.
 
