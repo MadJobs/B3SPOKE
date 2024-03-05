@@ -28,7 +28,7 @@
 
 <img width="514" alt="Screenshot 2024-03-04 at 7 19 00 PM" src="https://github.com/MadJobs/B3SPOKE/assets/3261849/65a09eaa-60ed-4243-ac2e-36fae33e44bf">
 
-
+https://github.com/MadJobs/B3SPOKE/assets/3261849/1f95235d-26a5-4d31-95ec-58ce9d120371
 
 ## Installation
 
@@ -70,3 +70,7 @@ mv .streamlit/sample_secrets.toml .streamlit/secrets.toml
 streamlit run b3spoke.py
 ```
 ### Access the application in your web browser at http://localhost:8501.
+
+## Setup initial skillset and resumes
+
+https://github.com/MadJobs/B3SPOKE/assets/3261849/b712e4b2-a52c-4f57-91bb-7312111919d8
