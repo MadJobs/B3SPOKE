@@ -19,7 +19,7 @@ B3SPOKE generates bespoke resumes tailored to specific job descriptions using na
 - Preview and download generated resumes.
 - Filter skillset data for more precise resume generation.
 - Real-time updates and notifications.
-- Easy-to-use interface with a streamlined workflow.
+
 
 ## Installation
 
