@@ -1,0 +1,53 @@
+Resume Template
+[Your Name]
+
+[Your Address]
+[City, State, Zip]
+[Phone Number]
+[Email Address]
+[LinkedIn Profile (optional)]
+[Personal Website (optional)]
+
+Objective
+A brief statement about your career objectives and how you can contribute to the company you're applying to.
+
+Education
+[Your Degree]
+[School Name, City, State]
+[Graduation Month, Year]
+Relevant Coursework: [Course 1, Course 2, Course 3]
+
+Experience
+[Job Title]
+[Company Name, City, State]
+[Start Month, Year – End Month, Year]
+
+Bullet point describing your responsibilities and achievements
+Bullet point describing your responsibilities and achievements
+[Job Title]
+[Company Name, City, State]
+[Start Month, Year – End Month, Year]
+
+Bullet point describing your responsibilities and achievements
+Bullet point describing your responsibilities and achievements
+Skills
+Skill 1
+Skill 2
+Skill 3
+Certifications
+Certification 1, Issuing Organization, Month Year
+Certification 2, Issuing Organization, Month Year
+Projects
+[Project Title]
+
+Brief description of the project, technologies used, and your contribution
+[Project Title]
+
+Brief description of the project, technologies used, and your contribution
+Volunteer Experience
+[Position Title]
+[Organization Name, City, State]
+[Start Month, Year – End Month, Year]
+
+Bullet point describing your responsibilities and achievements
+Bullet point describing your responsibilities and achievements
