@@ -5,6 +5,11 @@ import os
 from docx import Document
 import fitz
 import time
+from datetime import datetime
+import urllib.request
+import ssl
+from bs4 import BeautifulSoup
+import requests
 
 client = OpenAI(api_key=st.secrets["openai_api_key"])
 
@@ -32,6 +37,61 @@ template_content = None
 application_questions = []
 application_responses = []
 
+def create_query(sites, job_titles, keywords, date_after):
+    sites_query = " | ".join([f"site:{site}" for site in sites])
+    job_titles_query = " | ".join(job_titles)
+    keywords_query = ' "'.join([''] + keywords + [''])  #
+    query = f"{sites_query} ({job_titles_query}){keywords_query} after:{date_after}"
+    return query
+st.success("Google Search Query Wizard | Show Job Listings")
+
+def create_query(sites, job_titles, keywords, date_after):
+    sites_query = " | ".join([f"site:{site}" for site in sites])
+    job_titles_query = " | ".join(job_titles)
+    keywords_query = ' "'.join([''] + keywords + [''])  
+    query = f"{sites_query} ({job_titles_query}){keywords_query} after:{date_after}"
+    return query
+
+
+def bypass_ssl_verification():
+    ssl._create_default_https_context = ssl._create_unverified_context
+
+
+with st.expander("Build Your Query Here"):
+    
+    col1, col2 = st.columns([2, 3])
+    with col1:
+        with st.form(key='query_builder_form'):
+            sites = st.text_area("Enter the websites to search, separated by commas.", 
+                                 value="http://lever.co,http://greenhouse.io,http://glassdoor.com,https://uk.indeed.com").split(',')
+            job_titles_input = st.text_input("Enter the job titles to search, separated by commas.", 
+                                             value="hacker, developer, engineer, CyberSecurity").split(',')
+            keywords_input = st.text_input("Enter additional keywords, separated by commas.", 
+                                           value="relocation,CyberSecurity,python").split(',')
+            date_after = st.date_input("Select the date for the 'after' filter.", datetime.now())
+            submit_button = st.form_submit_button(label='Generate')
+            headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+                    }
+query = create_query(sites, job_titles_input, keywords_input, date_after.strftime("%Y-%m-%d"))
+search_url = f"https://www.google.com/search?q={urllib.parse.quote(query)}"
+request = urllib.request.Request(search_url, headers=headers)
+
+if submit_button:
+    col2.text_area("Generated Query", query, height=100)
+    col2.error("Caution Live URL Below")
+    col2.write(search_url)          
+ 
+        #execute_search = st.button("Execute Search")
+   
+#if execute_search:
+#
+#    with urllib.request.urlopen(request) as search_response:
+#        search_soup = BeautifulSoup(search_response.read(), 'html.parser')
+#        st.sidebar.markdown(search_soup)
+            
+                
+ 
 def get_csv_files(directory):
     return [f for f in os.listdir(directory) if f.endswith(".csv")]
 
@@ -137,7 +197,7 @@ with st.sidebar.expander("Ask a Question"):
     brief_context = f"Summarize or highlight key points from my skillset: {csv} and resume content:{resume_content} here."
    
    
-    contextual_question = st.text_input("Enter your question", key="contextual_question")
+    contextual_question = st.text_area("Enter your question", height=23,key="contextual_question")
     if st.button("Submit Question", key="submit_contextual"):
 
         prompt = f"Based on the following key information: {brief_context}\n\nQuestion: {contextual_question}\nAnswer:"
