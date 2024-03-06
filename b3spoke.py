@@ -29,10 +29,11 @@ skillset_content = None
 resume_content = None
 template_content = None
 
+application_questions = []
+application_responses = []
 
 def get_csv_files(directory):
     return [f for f in os.listdir(directory) if f.endswith(".csv")]
-
 
 def get_doc_files(directory):
     doc_extensions = [".pdf", ".doc", ".docx", ".txt"]
@@ -42,11 +43,9 @@ def get_doc_files(directory):
         if any(f.endswith(ext) for ext in doc_extensions)
     ]
 
-
 def load_multiple_csv(file_paths):
     df_list = [pd.read_csv(path) for path in file_paths]
     return pd.concat(df_list, ignore_index=True)
-
 
 def save_uploaded_file(directory, uploaded_file):
     file_path = os.path.join(directory, uploaded_file.name)
@@ -54,27 +53,8 @@ def save_uploaded_file(directory, uploaded_file):
         f.write(uploaded_file.getbuffer())
     return file_path
 
-
 def convert_df_to_csv(df):
     return df.to_csv(index=False).encode("utf-8")
-
-
-def read_file_content(file_path):
-    """Reads and converts content of various file types to text."""
-    if file_path.endswith(".txt"):
-        with open(file_path, "r", encoding="utf-8") as file:
-            return file.read()
-    elif file_path.endswith(".docx"):
-        doc = Document(file_path)
-        return "\n".join([paragraph.text for paragraph in doc.paragraphs])
-    elif file_path.endswith(".pdf"):
-        doc = fitz.open(file_path)
-        text = ""
-        for page in doc:
-            text += page.get_text()
-        return text
-    return ""
-
 
 def read_file_content(file_path):
     """Reads and converts content of various file types to text."""
@@ -92,24 +72,14 @@ def read_file_content(file_path):
                 text += page.get_text()
             return text
         else:
-
             return ""
     except Exception as e:
         st.error(f"Failed to read file {file_path}: {str(e)}")
         return ""
 
-
 def generate_bespoke_resume(skillset_content, resume_content, job_description):
     df = load_multiple_csv(selected_csv_paths)
-    column_names = df.columns.tolist()
-    filters = {}
-    filtered_df = df
-    for column, selected_values in filters.items():
-        filtered_df = filtered_df[filtered_df[column].isin(selected_values)]
-    csv = convert_df_to_csv(filtered_df)
-
-    # prompt = f"I will now generate a new resume tailored to the job description \"{job_description}\" using the skills from the content \"{skillset_content}\" and your existing resume content \"{resume_content}\". Let's begin."
-    #prompt = f"Given the job description: {job_description}, my skills: {csv}, and my resume: {resume_content}, create a new version of {resume_content} bespoke to the job description using the output format in {template_content} which tailored specifically to the job. Include a an analaysis percentage match with the my existing skills{csv} and {resume_content} to the {job_description} then a percentage improvement with the newly created resume."
+    csv = convert_df_to_csv(df)
     prompt = f"""You are to take on the persona of a confident, outgoing, intelligent and motivated professional looking for a career change. As you are looking for a new job you will be creating a cover letter and a new resume for each position you apply to. To achive this, you are going to read the job {job_description} and determine the industry and any nuances to that industry.  When you determine that, you will continue under the impression that is the lens in which to see your work history and skillset to find direct, or inferred corellatons with skillset: {csv} and resume content:{resume_content}. Your objective is to create a new resume bespoke to the the industry and job description. For example, when you create the new resume Objective, you will use the industy and job description to include how any of the resume and skillset experience is realevant to the position. You will do that for each section of the resume, Which needs to include these sections in order (Each section should be all caps): 
     Name
     Contact
@@ -140,6 +110,35 @@ def generate_bespoke_resume(skillset_content, resume_content, job_description):
     except Exception as e:
         st.error(f"Error generating bespoke resume: {str(e)}")
         return None
+    
+brief_context = "Summarize or highlight key points from my skillset: {csv} and resume content:{resume_content} here."
+with st.sidebar.expander("Ask a Question"):
+
+    contextual_question = st.text_input("Enter your question", key="contextual_question")
+    if st.button("Submit Question", key="submit_contextual"):
+
+        prompt = f"Based on the following key information: {brief_context}\n\nQuestion: {contextual_question}\nAnswer:"
+
+
+        try:
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are an AI knowledgeable about [specific domain or general knowledge]."},
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=1,
+                max_tokens=256,
+                top_p=1.0,
+                frequency_penalty=0,
+                presence_penalty=0
+            )
+            contextual_answer = response.choices[0].message.content
+        except Exception as e:
+            contextual_answer = f"Failed to generate answer: {str(e)}"
+
+        # Display the answer
+        st.text_area("Answer", value=contextual_answer, height=100, key="contextual_answer")
 
 
 with st.sidebar.expander("Skillsets"):
@@ -158,7 +157,6 @@ with st.sidebar.expander("Skillsets"):
     ]
     if selected_csv_paths:
         df = load_multiple_csv(selected_csv_paths)
-
 
 with st.sidebar.expander("Resumes"):
     uploaded_resume = st.file_uploader(
@@ -188,7 +186,6 @@ with st.sidebar.expander("Templates"):
     template_content = (
         read_file_content(template_path) if template_path else "No template provided."
     )
-
 
 if selected_resume_files:
     print("")
