@@ -92,7 +92,10 @@ def generate_bespoke_resume(skillset_content, resume_content, job_description):
     ORGANIZATION MEMBERSHIPS
     Professional ACCOMPLISHMENTSIn   
     Publications or speaking engagements. Ensure you use markdown for your output. Include a an analaysis percentage match with the my existing skills and exisiting resume to the job description then a percentage improvement with the newly created resume."""
+    
+
     try:
+        
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -111,20 +114,39 @@ def generate_bespoke_resume(skillset_content, resume_content, job_description):
         st.error(f"Error generating bespoke resume: {str(e)}")
         return None
     
-brief_context = "Summarize or highlight key points from my skillset: {csv} and resume content:{resume_content} here."
-with st.sidebar.expander("Ask a Question"):
+csv_files = get_csv_files(SKILLSET_DIR)
+selected_csv_files =  csv_files
+selected_csv_paths = [
+        os.path.join(SKILLSET_DIR, file_name) for file_name in selected_csv_files
+    ]
+resume_files = get_doc_files(RESUME_DIR)
+selected_resume_files =  resume_files
 
+resume_path = (
+        os.path.join(RESUME_DIR, resume_files[0])
+        if selected_resume_files
+        else None
+    )
+resume_content = (
+        read_file_content(resume_path) if resume_path else "No resume provided."
+    )    
+with st.sidebar.expander("Ask a Question"):
+    
+    df = load_multiple_csv(selected_csv_paths)
+    csv = convert_df_to_csv(df)
+    brief_context = f"Summarize or highlight key points from my skillset: {csv} and resume content:{resume_content} here."
+   
+   
     contextual_question = st.text_input("Enter your question", key="contextual_question")
     if st.button("Submit Question", key="submit_contextual"):
 
         prompt = f"Based on the following key information: {brief_context}\n\nQuestion: {contextual_question}\nAnswer:"
 
-
         try:
             response = client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {"role": "system", "content": "You are an AI knowledgeable about [specific domain or general knowledge]."},
+                    {"role": "system", "content": f"You are an AI knowledgeable about {brief_context}."},
                     {"role": "user", "content": prompt},
                 ],
                 temperature=1,
