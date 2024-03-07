@@ -25,6 +25,9 @@
 - `Skillset Filter:` Zero in on the skills that matter most for your dream job.
 - `Real-Time Magic:` Stay updated with real-time notifications.
 - `And the cherry on top?` Match Analysis - see how your mad libs-inspired, AI-crafted resume compares to your old one, ensuring every application is a step closer to your dream job.
+- `Customized Search Queries:` No more aimless browsing. Generate Job recommendations, keywords and build search queries optimized to match those job recommendations.
+  
+<img width="2964" alt="Screenshot 2024-03-06 at 1 23 45 PM" src="https://github.com/MadJobs/B3SPOKE/assets/3261849/a3f1af8e-c981-4e05-a3ed-a0c1077656a3">
 
 <img width="514" alt="Screenshot 2024-03-04 at 7 19 00 PM" src="https://github.com/MadJobs/B3SPOKE/assets/3261849/65a09eaa-60ed-4243-ac2e-36fae33e44bf">
 
